@@ -12,8 +12,8 @@ Contents: [access and credits](#access-and-credits), [audiences](#audiences), [s
 | Any browser task | Same route, `type: "WEB"`, `web_mode: "e2e"` | `mimiq.test_flow` |
 | General text or idea | Same route, `type: "TEXT"`, optional `context` and `goal` | `mimiq.test_text`, `mimiq.test_copy` |
 | Feed copy | Same route, `type: "TEXT"`, `media: "copy"` | No exact equivalent; MCP copy uses general text |
-| Email | Same route, `type: "TEXT"`, `media: "email"` | None for inbox mode |
-| A/B variants | Separate simulations with the same audience and `persona_id` values | `mimiq.test_copy` for two text variants |
+| Email | Same route, `type: "TEXT"`, `media: "email"` | None for a single inbox test; `mimiq.compare_copy` with `format: "email"` for two versions |
+| A/B variants | Separate simulations with the same audience and `persona_id` values | `mimiq.compare_copy` (copy or email), `mimiq.compare_urls` (two pages); `mimiq.test_copy` for raw text reactions |
 | Ad, image, or screenshots | Same route, `type: "IMAGE"`, `images` | None |
 | Video frames | Same route, `type: "IMAGE"`, `media: "video"`, `images`, `frame_times`, `duration` | None |
 | Open audience question or initial interview | Same route, `type: "TEXT"`, `goal_schema: {"goal_type":"interview"}` | None for this open-answer mode |

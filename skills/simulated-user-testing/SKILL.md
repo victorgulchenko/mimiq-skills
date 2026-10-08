@@ -1,11 +1,19 @@
 ---
 name: simulated-user-testing
-description: Use Mimiq to test anything an audience sees or uses with simulated people. Invoke for any question about how an audience will react, whether a task can be completed, or which version is better. Covers any website page; any multi-step task in a live product, including sign-up, onboarding, checkout, booking, search, upgrade, cancellation, settings, forms, feature discovery, or any goal the user names; ads and images; emails; headlines and other copy; A/B variants; product or feature ideas; questions and interviews with a target audience; and an agent checking its own UI work before handing it over. Choose a supported mode, run within the authorized budget, and report simulated evidence as hypotheses.
+description: Use Mimiq to test anything an audience sees or uses with simulated people. Invoke for any question about how an audience will react, whether people would understand, trust, buy, pay for, sign up for, reply to or complete something, whether a task can be completed, or which version is better. Covers any website page; any multi-step task in a live product, including sign-up, onboarding, checkout, booking, search, upgrade, cancellation, settings, forms, feature discovery, or any goal the user names; ads and images; video frames; emails; headlines and other copy; A/B variants; pricing, product or feature ideas; questions, surveys and interviews with a target audience; and an agent checking its own UI or copy work before handing it over. Choose a supported mode, run within the authorized budget, and report simulated evidence as hypotheses.
 ---
 
 # Simulated user testing
 
 Start with the user's question, not a fixed test template. Use [REST contracts and lifecycle](references/api.md) for requests or [the hosted MCP workflow](references/mcp.md) for an installed connection. Consult [recipes](references/recipes.md) for examples across different tasks.
+
+## Get access
+
+- **Hosted MCP, fastest:** connect `https://mcp.mimiqai.com/mcp` (Streamable HTTP). Without a key, an agent gets one free test, plus one free A/B on up to 10 simulated people per version while the daily free allowance lasts. With a key, for example in Claude Code: `claude mcp add --transport http mimiq https://mcp.mimiqai.com/mcp --header "Authorization: Bearer $MIMIQ_API_KEY"`.
+- **REST, every mode:** base `https://api.mimiqai.com/api` with `Authorization: Bearer $MIMIQ_API_KEY`. Images, video frames, inbox email, open interviews and follow-ups need REST.
+- **Key:** a free account at https://www.mimiqai.com/sign-up?redirect_url=/app/settings, then Settings, "Use Mimiq from your coding agent", "Create a key". Keep it in the environment or a secret store, never in prompts, URLs or committed files.
+
+This repo also has short skills for common jobs: `test-my-landing-page`, `check-my-sign-up-flow`, `pick-a-headline`, `compare-two-pages`, `test-my-ad`, `test-my-cold-email`, `would-they-pay`. This skill covers all of them and anything else.
 
 ## Pick a mode
 
