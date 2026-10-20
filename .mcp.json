@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "mimiq": {
+      "type": "http",
+      "url": "https://mcp.mimiqai.com/mcp",
+      "headers": { "Authorization": "Bearer ${MIMIQ_API_KEY:-}" }
+    }
+  }
+}

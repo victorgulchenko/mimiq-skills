@@ -1,0 +1,22 @@
+{
+  "name": "mimiq",
+  "version": "1.0.0",
+  "description": "Simulated people go through your preview build in a real browser and report where they got stuck and why, before you ship. Includes the Mimiq MCP server and eight skills.",
+  "author": {
+    "name": "Victor Gulchenko",
+    "url": "https://www.mimiqai.com"
+  },
+  "homepage": "https://www.mimiqai.com/mcp",
+  "repository": "https://github.com/victorgulchenko/mimiq-skills",
+  "license": "MIT",
+  "keywords": [
+    "user-testing",
+    "usability",
+    "simulated-users",
+    "signup-flow",
+    "checkout",
+    "onboarding",
+    "preview",
+    "ux"
+  ]
+}

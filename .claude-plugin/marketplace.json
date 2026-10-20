@@ -1,0 +1,16 @@
+{
+  "name": "mimiq",
+  "owner": {
+    "name": "Victor Gulchenko"
+  },
+  "metadata": {
+    "description": "Mimiq: simulated people test your build before you ship"
+  },
+  "plugins": [
+    {
+      "name": "mimiq",
+      "source": "./",
+      "description": "Simulated people go through your preview build in a real browser and report where they got stuck and why. The Mimiq MCP server plus skills for sign-up flows, landing pages, headlines, page comparisons, ads, cold emails and pricing."
+    }
+  ]
+}

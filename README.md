@@ -21,6 +21,17 @@ The general skill covers everything the short ones do; the short ones are quicke
 
 ## Install
 
+In Claude Code, add the plugin. It brings the skills and the Mimiq MCP server in one step:
+
+```
+/plugin marketplace add victorgulchenko/mimiq-skills
+/plugin install mimiq@mimiq
+```
+
+Set `MIMIQ_API_KEY` in your environment to use your account; without it, the MCP server gives one free test.
+
+For other clients, install the skills on their own:
+
 ```sh
 npx skills add victorgulchenko/mimiq-skills
 ```
@@ -44,6 +55,17 @@ For more, and for every mode over REST:
 4. Check the balance before a run with `GET /usage`. Tests use credits. Set a count and credit budget the agent may use.
 
 Use an already authorized, publicly reachable preview for browser tests. Flow tests click and type and can submit forms, so use disposable test data in an environment that safely accepts those actions. Buying credits, opening tunnels, publishing code, and messaging third parties each need your explicit authorization.
+
+## Make it part of every change
+
+Add these lines to your project's `CLAUDE.md` or `AGENTS.md`, and your agent checks a customer-facing change before it calls it done:
+
+```markdown
+## Before calling a customer-facing change done
+After changing a signup, onboarding, checkout, pricing or landing page, run
+mimiq.test_flow on the preview URL with the task a customer would try. Fix the
+steps people got stuck on, then run it again. Ask me before using more than 25 credits.
+```
 
 ## Use
 
