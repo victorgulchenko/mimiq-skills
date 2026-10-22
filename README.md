@@ -1,23 +1,18 @@
 # Mimiq skills
 
-Test anything your audience sees or uses with simulated people, then turn their reactions into useful next changes.
+Let AI agents use your app before your users do. These skills teach a coding agent to send [Mimiq](https://www.mimiqai.com)'s agents through a web app: each agent acts as one of your users in a real browser, tries a task in plain words, and reports what broke, what the browser caught (JavaScript errors, failed requests, requests slower than 3 seconds), and where it got stuck, with steps and screenshots.
 
-The skills run through [Mimiq](https://www.mimiqai.com). They need a client that can make HTTP requests or a Mimiq MCP connection. A skill is a set of instructions, not an API key or a credit allowance.
+A skill is a set of instructions, not an API key or a credit allowance. The skills need a Mimiq MCP connection or a client that can make HTTP requests.
 
 ## The skills
 
 | Skill | Use it to |
 | --- | --- |
-| [simulated-user-testing](skills/simulated-user-testing/SKILL.md) | Test anything: any page, any task in a live product, copy, images, video frames, email, ideas, pricing, A/B variants, questions and interviews with a target audience, or your own UI work before handing it over. Start here if unsure. |
-| [test-my-landing-page](skills/test-my-landing-page/SKILL.md) | Hear who would stay on a page, who would leave, and why. |
-| [check-my-sign-up-flow](skills/check-my-sign-up-flow/SKILL.md) | Send simulated people through sign-up, onboarding, checkout or any task in a real browser and find where they get stuck. |
-| [pick-a-headline](skills/pick-a-headline/SKILL.md) | Compare two headlines or short messages on the same simulated people and get a call on which to ship. |
-| [compare-two-pages](skills/compare-two-pages/SKILL.md) | Compare two live pages, such as a preview against production, and get a call on which to ship. |
-| [test-my-ad](skills/test-my-ad/SKILL.md) | See what people notice in an ad or image and whether they would stop or scroll past. |
-| [test-my-cold-email](skills/test-my-cold-email/SKILL.md) | Hear whether recipients would open, read or reply to an email, without sending it. |
-| [would-they-pay](skills/would-they-pay/SKILL.md) | Ask a target audience whether they would pay, which plan or price they would pick, and why not. |
-
-The general skill covers everything the short ones do; the short ones are quicker to find and to follow for one job.
+| [simulated-user-testing](skills/simulated-user-testing/SKILL.md) | Test any web app or task with AI agents acting as users: sign-up, onboarding, checkout, settings, booking, search, a new feature. Start here if unsure. |
+| [test-before-done](skills/test-before-done/SKILL.md) | After building a user-facing change, run agents on the preview, fix what they hit, and run again before calling it done. |
+| [check-my-sign-up-flow](skills/check-my-sign-up-flow/SKILL.md) | Find what breaks and where new users stall in sign-up, onboarding, checkout or any multi-step task. |
+| [test-my-landing-page](skills/test-my-landing-page/SKILL.md) | Have agents land on a page and try to do what it asks: start a trial, pick a plan, book a demo. |
+| [test-every-preview](skills/test-every-preview/SKILL.md) | Set up the GitHub Action that runs agents on every Vercel, Netlify or Cloudflare Pages preview and comments on the pull request. |
 
 ## Install
 
@@ -28,7 +23,7 @@ In Claude Code, add the plugin. It brings the skills and the Mimiq MCP server in
 /plugin install mimiq@mimiq
 ```
 
-Set `MIMIQ_API_KEY` in your environment to use your account; without it, the MCP server gives one free test.
+Set `MIMIQ_API_KEY` in your environment to use your account; without it, the MCP server gives one free run of up to 3 agents.
 
 For other clients, install the skills on their own:
 
@@ -36,59 +31,42 @@ For other clients, install the skills on their own:
 npx skills add victorgulchenko/mimiq-skills
 ```
 
-Pick the skills and your client when the installer asks. To install one skill directly, or to see the list first:
-
-```sh
-npx skills add victorgulchenko/mimiq-skills --skill simulated-user-testing
-npx skills add victorgulchenko/mimiq-skills --list
-```
-
 ## Set up
 
-The fastest start is the hosted MCP server: add `https://mcp.mimiqai.com/mcp` as a Streamable HTTP server. Without a key, an agent gets one free test.
+The fastest start is the hosted MCP server: add `https://mcp.mimiqai.com/mcp` as a Streamable HTTP server.
 
-For more, and for every mode over REST:
+For more runs:
 
-1. Create a free account at [mimiqai.com](https://www.mimiqai.com/sign-up?redirect_url=/app/settings).
-2. Open [Settings](https://www.mimiqai.com/app/settings). Under **Use Mimiq from your coding agent**, choose **Create a key**. Store it in your client's secret store, optionally exposed as `MIMIQ_API_KEY`. Never put API keys in prompts or files.
+1. Create a free account at [mimiqai.com](https://www.mimiqai.com/sign-up?redirect_url=/app/settings) (50 credits; each agent uses 5).
+2. Open [Settings](https://www.mimiqai.com/app/settings). Under **Use Mimiq from your coding agent**, choose **Create a key**. Store it in your client's secret store, optionally as `MIMIQ_API_KEY`. Never put keys in prompts or files.
 3. Send it as `Authorization: Bearer $MIMIQ_API_KEY`, for MCP for example `claude mcp add --transport http mimiq https://mcp.mimiqai.com/mcp --header "Authorization: Bearer $MIMIQ_API_KEY"`, or to the REST API at `https://api.mimiqai.com/api`.
-4. Check the balance before a run with `GET /usage`. Tests use credits. Set a count and credit budget the agent may use.
 
-Use an already authorized, publicly reachable preview for browser tests. Flow tests click and type and can submit forms, so use disposable test data in an environment that safely accepts those actions. Buying credits, opening tunnels, publishing code, and messaging third parties each need your explicit authorization.
+Use a publicly reachable preview or staging environment that safely accepts test sign-ups and form submissions: agents really click and submit. For protected previews and pages behind a sign-in, pass `access` with a bypass secret or a test account. Buying credits, opening tunnels, publishing code and messaging third parties each need your explicit authorization.
 
 ## Make it part of every change
 
-Add these lines to your project's `CLAUDE.md` or `AGENTS.md`, and your agent checks a customer-facing change before it calls it done:
+Add these lines to your project's `CLAUDE.md` or `AGENTS.md`, and your coding agent checks a user-facing change before it calls it done:
 
 ```markdown
-## Before calling a customer-facing change done
-After changing a signup, onboarding, checkout, pricing or landing page, run
-mimiq.test_flow on the preview URL with the task a customer would try. Fix the
-steps people got stuck on, then run it again. Ask me before using more than 25 credits.
+## Before calling a user-facing change done
+After changing anything a user goes through (signup, onboarding, checkout,
+settings, a new feature), run mimiq.test_flow on the preview URL with the task
+a user would try. Fix what the agents hit, then run it again. Ask me before
+using more than 25 credits.
 ```
 
 ## Use
 
-- “Review our pricing page for 5 simulated independent accountants. What makes the plans hard to choose?”
-- “Check our disposable checkout demo with 3 simulated shoppers. Apply the supplied test coupon and reach the order review screen.”
-- “Can 3 simulated subscribers find cancellation in our test account? Stop at the confirmation screen.”
-- “Compare these two hero headlines with the same 10 simulated small-business owners. Which should we ship?”
-- “Compare our preview deployment with production on 10 simulated first-time visitors.”
-- “Test this ad image and caption with 5 simulated cycling commuters. What do they notice or misunderstand?”
-- “Review this cold email with 5 simulated operations managers. What would make them reply or delete it?”
-- “Would 15 simulated parents of young kids pay $12 a month for this? Which plan would they pick?”
-- “Ask 5 simulated museum archivists how they handle missing image permissions, then interview one about the biggest obstacle.”
-- “Before handing over your UI change, check the empty state and route to first value on the authorized preview with 3 simulated first-time subscribers.”
-
-The agent chooses the mode, defines the simulated audience, runs within your budget, and ties findings to the returned evidence. [Recipes](skills/simulated-user-testing/references/recipes.md) show more starting points. The task can be any goal you name.
-
-## MCP or REST
-
-The [MCP reference](skills/simulated-user-testing/references/mcp.md) covers the nine published tools, including page and copy comparisons and audience review. The [REST reference](skills/simulated-user-testing/references/api.md) also covers images, video frames, inbox email, interviews, follow-ups and other capabilities without a dedicated MCP tool.
+- "Have three agents sign up on this preview and tell me what breaks."
+- "Check the new checkout on the preview before I merge. Apply the test coupon and stop before payment."
+- "Can three agents find cancellation in our test account? Stop at the confirmation screen."
+- "Run Mimiq on staging with parents shopping for school shoes, then fix what they hit."
+- "Sign in with this test account on the protected preview and change the company name."
+- "Set up Mimiq on every preview deploy for this repo."
 
 ## What the results are
 
-All Mimiq reactions and journeys are simulated. They help form hypotheses about comprehension, objections, and usability. They are not measured conversion, proof of task reliability, or a substitute for real-world research and functional testing.
+The agents are simulated users. The browser's records (errors, failed and slow requests) are observed facts; the agents' words show where a newcomer gets confused or gives up. Agents find problems; they do not forecast conversion, and they are not a deterministic regression suite.
 
 ## License
 

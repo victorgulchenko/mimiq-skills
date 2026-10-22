@@ -1,40 +1,27 @@
-# Recipes for simulated testing
+# Recipes: tasks for AI agents
 
-These are starting points, not an allowed-use list. Adapt the goal to any task the user names. Counts are small starting cohorts of simulated people, subject to the user's budget and `GET /usage`. Use the user's actual content and authorized scope.
+Starting points, not an allowed-use list. Adapt the task to whatever the user names. Counts are small starting runs, subject to the user's budget and `GET /usage` (each agent uses 5 credits).
 
-All Flow examples assume an already reachable, authorized disposable demo with appropriate test state and safe submissions. A sentence saying “stop before” is not a technical safeguard. Do not make real purchases, bookings, account changes, or third-party communications without explicit authorization.
+Every example assumes an authorized, publicly reachable preview, staging or demo with test data, where submissions are safe. A sentence saying "stop before" is not a technical safeguard: do not run against production accounts, real payments, real bookings or messages to third parties without explicit authorization.
 
-“Goal text” below is the research intent. Map it using [the API contract](api.md): Flow/Page/general text use `goal`; open Ask uses the question plus `goal_schema: {"goal_type":"interview"}`; Survey uses `question`; individual follow-up uses `message`; room follow-up uses `question`. For feed Copy, Email, and feed Ad, keep the goal as an analysis question and omit `goal`/`goal_schema` to preserve the medium. For Component, put the question in the component content or MCP `goal`. All comparisons reuse identical `persona_id` values.
+Pattern: "Starting at [entry], try to [task] using [test data]. Success is [screen or state]. Stop before [out-of-scope action]."
 
-| # | User ask | Mode | Goal text | Simulated audience | Count |
-| --- | --- | --- | --- | --- | --- |
-| 1 | “What makes our pricing page hard to choose from?” | Page | “Choose the plan that fits a solo practice and explain which limits or terms make the decision difficult.” | Simulated independent accountants evaluating practice software | 5 |
-| 2 | “Review this replacement-part product page.” | Page | “Work out whether this part fits the supplied appliance and identify missing compatibility information.” | Simulated household appliance owners doing their own repairs | 5 |
-| 3 | “Can the documentation answer a setup question?” | Flow | “Starting at the docs home, find how to export a project and identify the supported file format. Success is the relevant instructions.” | Simulated first-time users of a design tool | 3 |
-| 4 | “Check our sign-up demo.” | Flow | “Create a disposable demo profile with the supplied test data and reach the account details screen.” | Simulated freelance translators trying the product for the first time | 3 |
-| 5 | “Test onboarding through the first useful result.” | Flow | “Start with the demo workspace, load its sample data, and reach the first populated report.” | Simulated small-retailer operations managers | 3 |
-| 6 | “Try checkout with this test coupon.” | Flow | “Add the specified demo item, apply the supplied test coupon, and reach order review with the discount visible. Stop before payment.” | Simulated occasional online shoppers unfamiliar with this store | 3 |
-| 7 | “Is cancellation discoverable?” | Flow | “From the disposable account dashboard, find how to cancel the subscription and reach the final confirmation screen. Stop before confirming.” | Simulated subscribers who want to end a service they rarely use | 3 |
-| 8 | “Can the weekly digest be disabled?” | Flow | “Find notification settings and save the weekly digest as disabled in the disposable account.” | Simulated busy team administrators who rarely edit settings | 3 |
-| 9 | “Check appointment booking.” | Flow | “Find the next available afternoon appointment with the specified demo practitioner and reach the booking review screen. Do not submit a booking.” | Simulated first-time clinic website visitors | 3 |
-| 10 | “Can search find a suitable item?” | Flow | “Find a waterproof backpack within the supplied budget and size constraints. Success is a matching product detail page.” | Simulated commuters comparing everyday backpacks | 3 |
-| 11 | “Check the upgrade path.” | Flow | “Find which plan includes exports, inspect its terms, and reach the upgrade review screen in the demo. Stop before purchase.” | Simulated free-plan analysts needing an export | 3 |
-| 12 | “Test recovery from a form error.” | Flow | “Submit the demo form with the supplied invalid postcode, understand the feedback, correct it using the supplied valid value, and reach the next step.” | Simulated applicants using this service for the first time | 3 |
-| 13 | “Can the new feature be discovered?” | Flow | “Starting at the demo dashboard, find how to schedule a report and open its configuration screen. Do not send or schedule a real report.” | Simulated returning analysts who know only the old dashboard | 3 |
-| 14 | “Does this error message explain recovery?” | General text | “Explain what went wrong and what you would try next after reading the supplied upload error.” | Simulated occasional document uploaders without technical training | 5 |
-| 15 | “Review this empty-state component before I build it.” | Component | “From the supplied HTML and description, explain what this empty state offers and which action you would choose first.” | Simulated new project managers with no existing projects | 5 |
-| 16 | “Check navigation in a narrow layout.” | Flow, REST `devices: "phone"` | “From the demo home, find delivery information using the navigation. Success is the delivery details screen.” | Simulated shoppers browsing on a phone | 3 |
-| 17 | “Which of these two hero headlines makes the offer clearer?” | Compare two Page variants | “Explain the offer and what you expect after the main CTA, with only the hero headline changed between the supplied pages.” | Same simulated independent bookkeepers for A and B | 5 per version |
-| 18 | “Compare these two feed-post openings.” | Compare Copy | “Identify which supplied opening is noticed and understood, keeping the remaining post and offer identical.” | Same simulated owners of small repair shops for A and B | 5 per version |
-| 19 | “Test this ad image and caption.” | Image, feed Ad | “Identify what catches attention, what the ad appears to offer, and what raises doubts.” | Simulated cycling commuters shopping for weatherproof bags | 5 |
-| 20 | “Review this cold email before we send it.” | Email | “Identify why this supplied subject and message would be read or dismissed, and what makes its request unclear.” | Simulated operations managers at small logistics firms | 5 |
-| 21 | “Would this feature idea fit the current workflow?” | Open Ask | “Where, if anywhere, would the supplied shared checklist concept fit your current handoff process, and what would keep you from using it?” | Simulated shift supervisors at small manufacturers | 5 |
-| 22 | “Ask a niche audience about a recurring problem.” | Open Ask | “How do you handle missing image permissions when preparing an exhibition, and where does that process stall?” | Simulated archivists at small regional museums | 5 |
-| 23 | “Which improvement should we investigate first?” | Survey | “Which creates the most avoidable work: finding records, checking permissions, coordinating loans, or something else?” Use those four choices. | Simulated regional museum archivists | 5 |
-| 24 | “Interview the simulated person who questioned the terms.” | Individual follow-up | “You mentioned uncertainty about the renewal terms. Which wording caused that, and what did you expect instead?” | One existing simulated customer whose recorded result actually raised this objection | 1 existing |
-| 25 | “Ask the same simulated audience what information was missing.” | Room follow-up | “What information was missing when you tried to choose a plan?” | The existing simulated audience from the completed pricing test | Up to 5 existing, selected by ID |
-| 26 | “Check your own UI change before handing it over.” | Flow | “On the authorized preview, start at the empty reports screen, find the demo-data action, and reach a populated report. Record any obstacle introduced by the change.” | Simulated first-time analysts | 3 |
-| 27 | “Review these prototype screens before implementation.” | Image, ordered screenshots | “Review the supplied appointment-selection screens in order and explain which next action is unclear.” | Simulated first-time appointment bookers | 5 |
-| 28 | “Test the opening of this product video.” | Video frames | “From the supplied ordered frames and transcript, explain the offer and where attention or understanding is lost.” | Simulated home cooks considering a meal-planning tool | 5 |
+| # | User ask | Goal for the agents | Who | Agents |
+| --- | --- | --- | --- | --- |
+| 1 | "Check our sign-up." | "Starting on the home page, create an account and reach the dashboard." | First-time users the product is for | 3 |
+| 2 | "Test onboarding to the first useful result." | "Sign up, load the sample data, and reach the first populated report." | Small-retailer operations managers | 3 |
+| 3 | "Try checkout with this test coupon." | "Add the cheapest item, apply the code TEST10, and reach order review with the discount shown. Stop before payment." | Occasional online shoppers new to this store | 3 |
+| 4 | "Is cancellation discoverable?" | "From the dashboard of the test account, find how to cancel the subscription and reach the final confirmation screen. Stop before confirming." | Subscribers who rarely use the service | 3 |
+| 5 | "Can the weekly digest be turned off?" | "Find notification settings and save the weekly digest as off." | Busy team admins who rarely change settings | 3 |
+| 6 | "Check appointment booking." | "Find the next free afternoon slot with the demo practitioner and reach the booking review screen. Do not book." | First-time visitors to a clinic site | 3 |
+| 7 | "Can search find the right item?" | "Find a waterproof backpack under $80 that fits a 15 inch laptop. Success is a matching product page." | Commuters comparing backpacks | 3 |
+| 8 | "Check the upgrade path." | "Find which plan includes exports and reach the upgrade review screen. Stop before purchase." | Free-plan analysts who need an export | 3 |
+| 9 | "Does the form explain its errors?" | "Fill in the application with the postcode 0000, understand the error, fix it with 10115, and reach the next step." | First-time applicants | 3 |
+| 10 | "Can people find the new feature?" | "Starting on the dashboard, find how to schedule a report and open its settings. Do not schedule a real report." | Returning users who know only the old dashboard | 3 |
+| 11 | "Is our pricing page clear?" | "Pick the plan that fits a team of five and get to checkout. Stop before payment." | Team leads at small agencies | 5 |
+| 12 | "Check it on phones." | REST `devices: "phone"`, any goal above. | As above | 3 |
+| 13 | "Check the preview behind Vercel protection." | Any goal, with `access.vercel_bypass` from a secret. | As above | 3 |
+| 14 | "Test the pages behind our login." | "Sign in with the test account, open Settings, and change the company name to Test Co." with `access.login` from the user. | As above | 3 |
+| 15 | "Check your own change before handing it over." | "On the preview, start at the empty reports screen, find the demo-data action, and reach a populated report." | First-time analysts | 3 |
 
-For recipe 16, confirm that the returned browser evidence used the requested narrow layout. Device behavior depends on the runtime; do not claim mobile interaction from a field alone. If only screenshots are available, offer an Image review and label the reduced scope. For recipes 17 and 18, compare only matched usable `persona_id` values and disclose missing pairs. Email does not send anything, Component does not render HTML, and screenshots/video frames do not prove task completion.
+For recipe 12, confirm from the returned screenshots that the run used a phone layout before calling it a mobile result. For 13 and 14, pass secrets only through `access`, never in `goal`, and ask the user before passing any password.

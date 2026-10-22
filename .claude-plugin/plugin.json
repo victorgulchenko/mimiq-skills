@@ -1,7 +1,7 @@
 {
   "name": "mimiq",
-  "version": "1.0.0",
-  "description": "Simulated people go through your preview build in a real browser and report where they got stuck and why, before you ship. Includes the Mimiq MCP server and eight skills.",
+  "version": "2.0.0",
+  "description": "AI agents use your app like your users, in real browsers, and report what broke, what the browser caught and where they got stuck, before you ship. Includes the Mimiq MCP server and five skills.",
   "author": {
     "name": "Victor Gulchenko",
     "url": "https://www.mimiqai.com"
@@ -10,13 +10,15 @@
   "repository": "https://github.com/victorgulchenko/mimiq-skills",
   "license": "MIT",
   "keywords": [
+    "ai-agents",
+    "qa",
+    "testing",
     "user-testing",
-    "usability",
-    "simulated-users",
+    "e2e-testing",
+    "exploratory-testing",
+    "preview-deployments",
     "signup-flow",
     "checkout",
-    "onboarding",
-    "preview",
-    "ux"
+    "onboarding"
   ]
 }

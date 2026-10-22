@@ -4,13 +4,13 @@
     "name": "Victor Gulchenko"
   },
   "metadata": {
-    "description": "Mimiq: simulated people test your build before you ship"
+    "description": "Mimiq: AI agents use your app before your customers do"
   },
   "plugins": [
     {
       "name": "mimiq",
       "source": "./",
-      "description": "Simulated people go through your preview build in a real browser and report where they got stuck and why. The Mimiq MCP server plus skills for sign-up flows, landing pages, headlines, page comparisons, ads, cold emails and pricing."
+      "description": "AI agents use your preview like your users, in real browsers, and report what broke, what the browser caught and where they got stuck. The Mimiq MCP server plus skills for testing before done, sign-up flows, landing pages and every preview deploy."
     }
   ]
 }
